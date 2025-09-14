@@ -1,3 +1,58 @@
-# NeonBreak-OpenGL
-NeonBreak is an arcade game released by Taito in 1986. It expanded upon Atari's Breakout games of the 1970s by adding power-ups, different types of bricks, a variety of level layouts, and visual layering and depth. The title refers to a doomed mother ship from which the player's ship, the Vaus, escapes. It was widely ported to contemporary systems and followed by a series of remakes and sequels, including the 1987 arcade game NeonBreak: Revenge of Doh. NeonBreak revived the Breakout concept, resulting in many clones and similar games for home computers, even over a decade later.
-The program is of the same game in OpenGL. Mouse is used to control the paddle and we should break all the blocks.
+
+## 🕹️ NeonBreak-OpenGL
+
+**NeonBreak-OpenGL** is a modern recreation of the classic arcade game *NeonBreak*, built using C++ and OpenGL. It captures the essence of the original brick-breaking gameplay with smooth graphics, paddle control via mouse, and a clean retro aesthetic.
+
+---
+
+## 📜 Game History (Short Version)
+
+Originally released by **Taito in 1986**, *NeonBreak* expanded on Atari’s *Breakout* by introducing power-ups, layered visuals, and diverse brick layouts. Its popularity led to sequels like *Revenge of Doh* and inspired countless clones across home computers and consoles.
+
+---
+
+## 🎮 Gameplay Overview
+
+- Control the paddle using your **mouse**
+- Break all the bricks to clear the level
+- Watch out for ball speed and angles
+- Restart the game anytime by pressing **R**
+
+---
+
+## 🧱 Features
+
+- Smooth ball physics and paddle collision
+- Dynamic brick layout with scoring
+- Game Over and Restart logic
+- Credits and menu screens with modern gradients
+- Built entirely with **OpenGL (FreeGLUT)** and **C++**
+
+---
+
+## 🛠️ How to Run
+
+### Requirements:
+- Windows with MSYS2 or MinGW
+- FreeGLUT installed (`mingw-w64-x86_64-freeglut`)
+- Visual C++ Redistributable (for runtime DLLs)
+
+### Compile:
+```bash
+g++ Arkanoid.cpp -o NeonBreak -lfreeglut -lopengl32 -lglu32
+```
+
+### Run:
+```bash
+./NeonBreak.exe
+```
+
+---
+
+## 👨‍💻 Credits
+
+Developed by:
+- **Rakesh Biswas**
+- **Nafis Ahamed**
+
+---
