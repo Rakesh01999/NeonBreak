@@ -4,7 +4,6 @@
 #include<math.h>
 #include<random>
 #include<windows.h>
-// #include<GLUT/glut.h>
 #include<GL/freeglut.h>
 using namespace std;
 
@@ -38,24 +37,25 @@ int windows[4];
 
 //Creating a Ball
 void ball() {
-	glColor3fv(ball_color_array[ball_color]);
+	// glColor3fv(ball_color_array[ball_color]);
+	glColor3f(1.0f, 0.7f, 0.3f); // Light orange
 	glScalef(5, 5, 0);
 	glutSolidSphere(2.0, 100, 10);
 }
 
-//Creating a Paddle
+// Creating a Paddle
 void paddle() {
-	glColor3fv(paddle_color_array[paddle_color]);
-	glBegin(GL_POLYGON);
-	glVertex3f(5.0, 0, 0);
-	glVertex3f(paddle_size[padsize] - 10.0, 0, 0);
-	for (float i = -90; i < 91; i = i + 0.01)
-		glVertex3f((paddle_size[padsize] - 10.0) + 10 * cosf(i*M_PI), 10 + 10 * sinf(i*M_PI), 0.0);
-	glVertex3f(paddle_size[padsize] - 10.0, 20, 0);
-	glVertex3f(10.0, 20, 0);
-	for (float i = 90; i < 270; i = i + 0.01)
-		glVertex3f(10.0 + 10 * cosf(i*M_PI), 10 + 10 * sinf(i*M_PI), 0.0);
-	glEnd();
+    glColor3f(0.0f, 0.3f, 0.8f); // Deep blue
+    glBegin(GL_POLYGON);
+    glVertex3f(5.0, 0, 0);
+    glVertex3f(paddle_size[padsize] - 10.0, 0, 0);
+    for (float i = -90; i < 91; i += 0.01f)
+        glVertex3f((paddle_size[padsize] - 10.0) + 10 * cosf(i * M_PI), 10 + 10 * sinf(i * M_PI), 0.0);
+    glVertex3f(paddle_size[padsize] - 10.0, 20, 0);
+    glVertex3f(10.0, 20, 0);
+    for (float i = 90; i < 270; i += 0.01f)
+        glVertex3f(10.0 + 10 * cosf(i * M_PI), 10 + 10 * sinf(i * M_PI), 0.0);
+    glEnd();
 }
 
 //Creating a Brick
@@ -270,57 +270,152 @@ void menus()
 }
 
 //Display the starting screen
+// void menudisplay() {
+//     glMatrixMode(GL_MODELVIEW);
+//     glPushMatrix();
+//     glLoadIdentity();
+
+//     // Modern gradient background: teal → deep blue
+//     glBegin(GL_POLYGON);
+//     glColor3f(0.0f, 0.7f, 0.7f); // Top-left: teal
+//     glVertex2f(-xmax, ymax);
+
+//     glColor3f(0.0f, 0.4f, 0.6f); // Bottom-left: muted cyan
+//     glVertex2f(-xmax, -ymax);
+
+//     glColor3f(0.0f, 0.2f, 0.5f); // Bottom-right: deep blue
+//     glVertex2f(xmax, -ymax);
+
+//     glColor3f(0.0f, 0.5f, 0.8f); // Top-right: vibrant blue
+//     glVertex2f(xmax, ymax);
+//     glEnd();
+
+//     glPopMatrix();
+//     glPushMatrix();
+//     glLoadIdentity();
+
+//     // Title text color: bright yellow for contrast
+//     glColor3f(0.99f, 0.95f, 0.0f);
+//     char displaystring[10] = "NeonBreak";
+//     if (menux < (xmax - 350))
+//         writestring(GLUT_BITMAP_TIMES_ROMAN_24, displaystring, menux + 50.0, menuy);
+//     else
+//         writestring(GLUT_BITMAP_TIMES_ROMAN_24, displaystring, (xmax - 300) - (menux - (xmax - 350)), menuy);
+//     menux = (menux + 1) % (2 * (xmax - 350));
+//     glutPostRedisplay();
+//     Sleep(5);
+
+//     glPushMatrix();
+//     glTranslatef(0.35 * xmax, 0.50 * ymax, 0.0);
+//     button();
+//     glPopMatrix();
+//     strcpy_s(displaystring, "New Game");
+//     writestring(GLUT_BITMAP_TIMES_ROMAN_24, displaystring, (0.35 * xmax) + 150.0, (0.50 * ymax) + 50.0);
+
+//     glPushMatrix();
+//     glTranslatef(0.35 * xmax, 0.25 * ymax, 0.0);
+//     button();
+//     glPopMatrix();
+//     strcpy_s(displaystring, "Credits");
+//     writestring(GLUT_BITMAP_TIMES_ROMAN_24, displaystring, (0.35 * xmax) + 175.0, (0.25 * ymax) + 50.0);
+
+//     glFlush();
+// }
+
+
+// Display the starting screen
+// Utility: measure string width in pixels for GLUT fonts
+int getBitmapStringWidth(void* font, const char* str) {
+    int width = 0;
+    while (*str) {
+        width += glutBitmapWidth(font, *str);
+        str++;
+    }
+    return width;
+}
+
+// Display the starting screen
 void menudisplay() {
     glMatrixMode(GL_MODELVIEW);
     glPushMatrix();
     glLoadIdentity();
 
-    // Modern gradient background: teal → deep blue
+    float centerX = 0.5f * xmax;
+    float titleY  = 0.85f * ymax;
+
+    // ---- Gradient Background ----
     glBegin(GL_POLYGON);
-    glColor3f(0.0f, 0.7f, 0.7f); // Top-left: teal
-    glVertex2f(-xmax, ymax);
-
-    glColor3f(0.0f, 0.4f, 0.6f); // Bottom-left: muted cyan
-    glVertex2f(-xmax, -ymax);
-
-    glColor3f(0.0f, 0.2f, 0.5f); // Bottom-right: deep blue
-    glVertex2f(xmax, -ymax);
-
-    glColor3f(0.0f, 0.5f, 0.8f); // Top-right: vibrant blue
-    glVertex2f(xmax, ymax);
+    glColor3f(0.0f, 0.7f, 0.7f); glVertex2f(-xmax, ymax);
+    glColor3f(0.0f, 0.4f, 0.6f); glVertex2f(-xmax, -ymax);
+    glColor3f(0.0f, 0.2f, 0.5f); glVertex2f(xmax, -ymax);
+    glColor3f(0.0f, 0.5f, 0.8f); glVertex2f(xmax, ymax);
     glEnd();
 
     glPopMatrix();
     glPushMatrix();
     glLoadIdentity();
 
-    // Title text color: bright yellow for contrast
+    // ---- Title Box ----
+    float boxTop    = titleY + 40.0f;
+    float boxBottom = titleY - 40.0f;
+
+    // Filled background
+    glColor3f(0.1f, 0.05f, 0.2f);
+    glBegin(GL_POLYGON);
+    glVertex3f(-xmax, boxTop, 0.0f);
+    glVertex3f(xmax,  boxTop, 0.0f);
+    glVertex3f(xmax,  boxBottom, 0.0f);
+    glVertex3f(-xmax, boxBottom, 0.0f);
+    glEnd();
+
+    // Border
+    glLineWidth(4.0f);
     glColor3f(0.99f, 0.95f, 0.0f);
-    char displaystring[10] = "NeonBreak";
-    if (menux < (xmax - 350))
-        writestring(GLUT_BITMAP_TIMES_ROMAN_24, displaystring, menux + 50.0, menuy);
-    else
-        writestring(GLUT_BITMAP_TIMES_ROMAN_24, displaystring, (xmax - 300) - (menux - (xmax - 350)), menuy);
-    menux = (menux + 1) % (2 * (xmax - 350));
-    glutPostRedisplay();
-    Sleep(5);
+    glBegin(GL_LINE_LOOP);
+    glVertex3f(-xmax, boxTop, 0.0f);
+    glVertex3f(xmax,  boxTop, 0.0f);
+    glVertex3f(xmax,  boxBottom, 0.0f);
+    glVertex3f(-xmax, boxBottom, 0.0f);
+    glEnd();
 
+    // ---- Title Text ----
+    const char* title = "NeonBreak";
+    int titleWidth = getBitmapStringWidth(GLUT_BITMAP_TIMES_ROMAN_24, title);
+    glColor3f(0.99f, 0.95f, 0.0f);
+    glRasterPos2f(centerX - titleWidth / 2.0f, titleY - 10.0f);
+    for (const char* c = title; *c; c++) {
+        glutBitmapCharacter(GLUT_BITMAP_TIMES_ROMAN_24, *c);
+    }
+
+    // ---- Buttons ----
     glPushMatrix();
-    glTranslatef(0.35 * xmax, 0.50 * ymax, 0.0);
+    glTranslatef(0.35f * xmax, 0.50f * ymax, 0.0f);
     button();
     glPopMatrix();
-    strcpy_s(displaystring, "New Game");
-    writestring(GLUT_BITMAP_TIMES_ROMAN_24, displaystring, (0.35 * xmax) + 150.0, (0.50 * ymax) + 50.0);
+    writestring(GLUT_BITMAP_TIMES_ROMAN_24, "New Game",
+                (0.35f * xmax) + 150.0f, (0.50f * ymax) + 50.0f);
 
     glPushMatrix();
-    glTranslatef(0.35 * xmax, 0.25 * ymax, 0.0);
+    glTranslatef(0.35f * xmax, 0.25f * ymax, 0.0f);
     button();
     glPopMatrix();
-    strcpy_s(displaystring, "Credits");
-    writestring(GLUT_BITMAP_TIMES_ROMAN_24, displaystring, (0.35 * xmax) + 175.0, (0.25 * ymax) + 50.0);
+    writestring(GLUT_BITMAP_TIMES_ROMAN_24, "Info",
+                (0.35f * xmax) + 175.0f, (0.25f * ymax) + 50.0f);
+
+    // ---- Game Controls / Shortcuts ----
+    glColor3f(1.0f, 1.0f, 1.0f); // white text
+    float controlY = 0.15f * ymax;
+
+    writestring(GLUT_BITMAP_HELVETICA_18, "Controls:", 0.10f * xmax, controlY + 100.0f);
+    writestring(GLUT_BITMAP_HELVETICA_18, "Mouse Move  - Move Paddle", 0.10f * xmax, controlY + 70.0f);
+    writestring(GLUT_BITMAP_HELVETICA_18, "Left Mouse  - Launch Ball / Select Button", 0.10f * xmax, controlY + 40.0f);
+    writestring(GLUT_BITMAP_HELVETICA_18, "P           - Pause / Resume Game", 0.10f * xmax, controlY + 10.0f);
+    writestring(GLUT_BITMAP_HELVETICA_18, "Enter       - Continue from Score Screen", 0.10f * xmax, controlY - 20.0f);
+    writestring(GLUT_BITMAP_HELVETICA_18, "Q           - Quit Game", 0.10f * xmax, controlY - 50.0f);
 
     glFlush();
 }
+
 
 //Display the game page
 void gamedisplay() {
@@ -397,7 +492,7 @@ void scoredisplay() {
     }
 
     if (flag)
-        writestring(GLUT_BITMAP_TIMES_ROMAN_24, "You missed the ball ... ", 0.40 * xmax, 0.75 * ymax);
+        writestring(GLUT_BITMAP_TIMES_ROMAN_24, "The Ball missed  ... ", 0.40 * xmax, 0.75 * ymax);
     else
         writestring(GLUT_BITMAP_TIMES_ROMAN_24, "Congratulations! You have won. ", 0.35 * xmax, 0.75 * ymax);
 
@@ -413,7 +508,7 @@ void scoredisplay() {
     glFlush();
 }
 
-void creditsdisplay() {
+void infodisplay() {
     glMatrixMode(GL_MODELVIEW);
     glPushMatrix();
     glLoadIdentity();
@@ -575,13 +670,13 @@ void mousefunction(int button, int state, int x, int y)
 			}
 			else if ((x > (0.35 * xmax) && x < ((0.35 * xmax) + 400.0)) && ((ymax - y) >(0.25 * ymax) && (ymax - y) < ((0.25 * ymax) + 100.0))) {
 				scrolly = -1 * (ymax * 0.85);
-				windows[3] = glutCreateWindow("Credits");
+				windows[3] = glutCreateWindow("Info");
 				glutSetWindow(windows[3]);
 				glutFullScreen();
 				presentstate = 4;
 				init();
 				glutIdleFunc(idlefunction);
-				glutDisplayFunc(creditsdisplay);
+				glutDisplayFunc(infodisplay);
 				glutKeyboardFunc(keyboardfunction);
 				glutMainLoop();
 			}
