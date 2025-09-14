@@ -434,13 +434,17 @@ void creditsdisplay() {
     glLoadIdentity();
     glPushMatrix();
 
-    // Text color: bright yellow for contrast
-    glColor3f(1.0f, 1.0f, 0.0f);
-    writestring(GLUT_BITMAP_TIMES_ROMAN_24, "----------------------------------------------------------------------------------------", 0.05 * xmax, (0.85 * ymax) + scrolly);
-    writestring(GLUT_BITMAP_TIMES_ROMAN_24, "Developed by", 0.40 * xmax, (0.80 * ymax) + scrolly);
-    writestring(GLUT_BITMAP_TIMES_ROMAN_24, "----------------------------------------------------------------------------------------", 0.05 * xmax, (0.75 * ymax) + scrolly);
-    writestring(GLUT_BITMAP_TIMES_ROMAN_24, "Rakesh Biswas", 0.40 * xmax, (0.70 * ymax) + scrolly);
-    writestring(GLUT_BITMAP_TIMES_ROMAN_24, "Nafis Ahamed", 0.40 * xmax, (0.65 * ymax) + scrolly);
+	// Text color: bright yellow for contrast
+	glColor3f(1.0f, 1.0f, 0.0f);
+
+	// Centered horizontal position
+	float centerX = 0.5f * xmax;
+
+	writestring(GLUT_BITMAP_TIMES_ROMAN_24, "XX--------------------------------XXXXXXXXXXXXXX------------------------------------XX", centerX - 0.45f * xmax, (0.85f * ymax) + scrolly);
+	writestring(GLUT_BITMAP_TIMES_ROMAN_24, "Developed by", centerX - 0.08f * xmax, (0.80f * ymax) + scrolly);
+	writestring(GLUT_BITMAP_TIMES_ROMAN_24, "XX--------------------------------XXXXXXXXXXXXXX------------------------------------XX", centerX - 0.45f * xmax, (0.75f * ymax) + scrolly);
+	writestring(GLUT_BITMAP_TIMES_ROMAN_24, "		Rakesh Biswas    :200112", centerX - 0.15f * xmax, (0.70f * ymax) + scrolly);
+	writestring(GLUT_BITMAP_TIMES_ROMAN_24, "		Nafis Ahamed     :200129", centerX - 0.15f * xmax, (0.65f * ymax) + scrolly);
 
     glPopMatrix();
     glutPostRedisplay();
