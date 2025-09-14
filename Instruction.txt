@@ -1,0 +1,3 @@
+1. Install VisualStudio Code
+2. Copy Glut file to project saved location 
+3. Run game and enjoy!!!
