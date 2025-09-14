@@ -39,7 +39,8 @@ Originally released by **Taito in 1986**, *NeonBreak* expanded on Atari’s *Bre
 
 ### Compile:
 ```bash
-g++ Arkanoid.cpp -o NeonBreak -lfreeglut -lopengl32 -lglu32
+# g++ NeonBreak.cpp -o NeonBreak -lfreeglut -lopengl32 -lglu32
+g++ -o NeonBreak NeonBreak.cpp -lfreeglut -lopengl32 -lglu32
 ```
 
 ### Run:
