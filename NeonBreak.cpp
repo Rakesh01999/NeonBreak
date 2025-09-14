@@ -70,28 +70,38 @@ void block(float xv, float yv)
 	glEnd();
 }
 
-void button()
-{
-	glColor3f(0.25, 0.22, 0.11);
-	glBegin(GL_POLYGON);
-	glVertex3f(0, 100, 0);
-	for (float i = (M_PI / 2.0); i > 0; i = i - 0.01)
-		glVertex3f(350.0 + 50.0 * cosf(i), 50.0 + 50.0 * sinf(i), 0.0);
-	glVertex3f(400.0, 0.0, 0);
-	for (float i = (3 * M_PI) / 2.0; i >= M_PI; i = i - 0.01)
-		glVertex3f(50.0 + 50.0 * cosf(i), 50.0 + 50.0 * sinf(i), 0.0);
-	glEnd();
-	glLineWidth(5.0);
-	glColor3f(0.99, 0.95, 0.0);
-	glBegin(GL_LINE_LOOP);
-	glVertex3f(0, 100, 0);
-	for (float i = (M_PI / 2.0); i > 0; i = i - 0.01)
-		glVertex3f(350.0 + 50.0 * cosf(i), 50.0 + 50.0 * sinf(i), 0.0);
-	glVertex3f(400.0, 0.0, 0);
-	for (float i = (3 * M_PI) / 2.0; i >= M_PI; i = i - 0.01)
-		glVertex3f(50.0 + 50.0 * cosf(i), 50.0 + 50.0 * sinf(i), 0.0);
-	glEnd();
+void button() {
+    glColor3f(0.25f, 0.22f, 0.11f); // Button fill color
+
+    glBegin(GL_POLYGON);
+
+    // Left rounded edge
+    for (float i = M_PI / 2.0f; i <= (3 * M_PI) / 2.0f; i += 0.01f)
+        glVertex3f(50.0f + 50.0f * cosf(i), 50.0f + 50.0f * sinf(i), 0.0f);
+
+    // Right rounded edge
+    for (float i = (3 * M_PI) / 2.0f; i <= (5 * M_PI) / 2.0f; i += 0.01f)
+        glVertex3f(350.0f + 50.0f * cosf(i), 50.0f + 50.0f * sinf(i), 0.0f);
+
+    glEnd();
+
+    // Outline
+    glLineWidth(5.0f);
+    glColor3f(0.99f, 0.95f, 0.0f); // Outline color
+
+    glBegin(GL_LINE_LOOP);
+
+    // Left rounded edge
+    for (float i = M_PI / 2.0f; i <= (3 * M_PI) / 2.0f; i += 0.01f)
+        glVertex3f(50.0f + 50.0f * cosf(i), 50.0f + 50.0f * sinf(i), 0.0f);
+
+    // Right rounded edge
+    for (float i = (3 * M_PI) / 2.0f; i <= (5 * M_PI) / 2.0f; i += 0.01f)
+        glVertex3f(350.0f + 50.0f * cosf(i), 50.0f + 50.0f * sinf(i), 0.0f);
+
+    glEnd();
 }
+
 void brick()
 {
 	float xf = xmax / column;
@@ -392,6 +402,7 @@ void scoredisplay() {
 	glPopMatrix();
 	glFlush();
 }
+
 void creditsdisplay() {
     glMatrixMode(GL_MODELVIEW);
     glPushMatrix();
