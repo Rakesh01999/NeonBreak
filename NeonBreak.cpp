@@ -364,43 +364,53 @@ void gamedisplay() {
 	glFlush();
 }
 //Display the score page after playing
+// Display the score page after playing
 void scoredisplay() {
-	glMatrixMode(GL_MODELVIEW);
-	glPushMatrix();
-	glLoadIdentity();
-	glBegin(GL_QUADS);
-	glColor3f(1.20, 1.0, 0.02);
-	glVertex2f(-xmax, ymax);
-	glVertex2f(-xmax, -ymax);
-	glColor3f(1.0, 0.0, 0.20);
-	glVertex2f(xmax, -ymax);
-	glVertex2f(xmax, ymax);
-	glEnd();
-	glPopMatrix();
-	glPushMatrix();
-	glLoadIdentity();
-	glPushMatrix();
-	glColor3f(0.0, 0.0, 0.0);
-	writestring(GLUT_BITMAP_TIMES_ROMAN_24, "----------------------------------------------------------------------------------------", 0.05 * xmax, 0.80 * ymax);
-	bool flag = false;
-	for (int i = 0; i < column; i++) {
-		for (int j = 0; j < row; j++) {
-			if (bricks[i][j] == 1)
-				flag = true;
-		}
-	}
-	if (flag)
-		writestring(GLUT_BITMAP_TIMES_ROMAN_24, "You missed the ball ... ", 0.40 * xmax, 0.75 * ymax);
-	else
-		writestring(GLUT_BITMAP_TIMES_ROMAN_24, "Congratulations! You have won. ", 0.35 * xmax, 0.75 * ymax);
-	writestring(GLUT_BITMAP_TIMES_ROMAN_24, "----------------------------------------------------------------------------------------", 0.05 * xmax, 0.70 * ymax);
-	writestring(GLUT_BITMAP_TIMES_ROMAN_24, "YOU SCORE IS :", 0.35 * xmax, 0.50 * ymax);
-	char scorestr[10];
-	_itoa_s(score, scorestr, 10);//To convert score to string
-	writestring(GLUT_BITMAP_TIMES_ROMAN_24, scorestr, 0.55 * xmax, 0.50 * ymax);
-	writestring(GLUT_BITMAP_TIMES_ROMAN_24, " Press Enter to continue ... ", xmax * 0.35, ymax * 0.30);
-	glPopMatrix();
-	glFlush();
+    glMatrixMode(GL_MODELVIEW);
+    glPushMatrix();
+    glLoadIdentity();
+
+    // Enhanced green-blue gradient background
+    glBegin(GL_QUADS);
+    glColor3f(0.0f, 0.8f, 0.3f); // Top-left: vibrant green
+    glVertex2f(-xmax, ymax);
+    glVertex2f(-xmax, -ymax);
+    glColor3f(0.0f, 0.5f, 0.4f); // Bottom-right: teal-green
+    glVertex2f(xmax, -ymax);
+    glVertex2f(xmax, ymax);
+    glEnd();
+
+    glPopMatrix();
+    glPushMatrix();
+    glLoadIdentity();
+    glPushMatrix();
+
+    glColor3f(0.0f, 0.0f, 0.0f); // Text color: black
+    writestring(GLUT_BITMAP_TIMES_ROMAN_24, "X--------------------------------XXXXXXXXXXXXXXX-------------------------------------X", 0.05 * xmax, 0.80 * ymax);
+
+    bool flag = false;
+    for (int i = 0; i < column; i++) {
+        for (int j = 0; j < row; j++) {
+            if (bricks[i][j] == 1)
+                flag = true;
+        }
+    }
+
+    if (flag)
+        writestring(GLUT_BITMAP_TIMES_ROMAN_24, "You missed the ball ... ", 0.40 * xmax, 0.75 * ymax);
+    else
+        writestring(GLUT_BITMAP_TIMES_ROMAN_24, "Congratulations! You have won. ", 0.35 * xmax, 0.75 * ymax);
+
+    writestring(GLUT_BITMAP_TIMES_ROMAN_24, "X--------------------------------XXXXXXXXXXXXXXX-------------------------------------X", 0.05 * xmax, 0.70 * ymax);
+    writestring(GLUT_BITMAP_TIMES_ROMAN_24, "YOU SCORE IS :", 0.35 * xmax, 0.50 * ymax);
+
+    char scorestr[10];
+    _itoa_s(score, scorestr, 10); // Convert score to string
+    writestring(GLUT_BITMAP_TIMES_ROMAN_24, scorestr, 0.55 * xmax, 0.50 * ymax);
+    writestring(GLUT_BITMAP_TIMES_ROMAN_24, " Press Enter to continue ... ", xmax * 0.35, ymax * 0.30);
+
+    glPopMatrix();
+    glFlush();
 }
 
 void creditsdisplay() {
