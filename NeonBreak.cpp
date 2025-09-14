@@ -42,6 +42,7 @@ void ball() {
 	glScalef(5, 5, 0);
 	glutSolidSphere(2.0, 100, 10);
 }
+
 //Creating a Paddle
 void paddle() {
 	glColor3fv(paddle_color_array[paddle_color]);
@@ -56,6 +57,7 @@ void paddle() {
 		glVertex3f(10.0 + 10 * cosf(i*M_PI), 10 + 10 * sinf(i*M_PI), 0.0);
 	glEnd();
 }
+
 //Creating a Brick
 void block(float xv, float yv)
 {
@@ -106,6 +108,7 @@ void brick()
 		}
 	}
 }
+
 void writestring(void *font, char *s, float x, float y) {
 	unsigned int i;
 	glRasterPos2f(x, y);
@@ -209,6 +212,7 @@ void change_ball_color(int action)
 
 void handle_menu(int action)
 {
+	// No action needed here for now
 }
 
 //Drop Down  Menu for Changing Color
